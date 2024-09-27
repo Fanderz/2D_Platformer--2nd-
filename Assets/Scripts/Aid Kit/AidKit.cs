@@ -17,7 +17,7 @@ public class AidKit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out FrogHealing frog))
+        if (collision.TryGetComponent(out Healer frog))
             Heal?.Invoke(this);
     }
 
