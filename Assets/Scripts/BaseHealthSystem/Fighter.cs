@@ -12,7 +12,7 @@ public class Fighter : MonoBehaviour
     private WaitForSeconds _wait;
     private Coroutine _fightingCoroutine;
 
-    public event Action<float> OnChangeHealth;
+    public event Action<float> TakingDamage;
 
     private void Awake()
     {
@@ -40,7 +40,7 @@ public class Fighter : MonoBehaviour
     }
 
     private void TakeDamage(float damage) =>
-        OnChangeHealth?.Invoke(-damage);
+        TakingDamage?.Invoke(damage);
 
     private IEnumerator Attack(Fighter enemy)
     {

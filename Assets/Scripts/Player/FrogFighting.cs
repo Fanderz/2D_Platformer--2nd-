@@ -9,8 +9,8 @@ public class FrogFighting : MonoBehaviour
 
     private void Awake()
     {
-        _fighter.OnChangeHealth += _health.ChangeHealth;
-        _healer.OnHealing += _health.ChangeHealth;
+        _fighter.TakingDamage += _health.DecreaseHealth;
+        _healer.Healing += _health.IncreaseHealth;
     }
 
     private void FixedUpdate()

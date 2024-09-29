@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,13 +8,30 @@ public class SmoothHealthBarView : MonoBehaviour
     [SerializeField] private HealthSystem _health;
     [SerializeField] private float _changeRate;
 
-    private void Awake()
+    private bool _running;
+
+    private Coroutine _coroutine;
+
+    private void OnEnable()
     {
-        _health.OnSmoothHealthChange += ChangeHealthView;
+        _running = true;
+        _coroutine = StartCoroutine(ChangeSmoothHealthView());
     }
 
-    private void ChangeHealthView(float value)
+    private void OnDisable()
     {
-        _slider.value = Mathf.MoveTowards(_slider.value, value / _health.MaxHealth, _changeRate * Time.deltaTime);
+        StopCoroutine(_coroutine);
+        _running = false;
+    }
+
+    private IEnumerator ChangeSmoothHealthView()
+    {
+        while (_running)
+        {
+            _slider.value = Mathf.MoveTowards(_slider.value, _health.Health / _health.MaxHealth, _changeRate * Time.fixedDeltaTime);
+
+            yield return null;
+        }
+
     }
 }

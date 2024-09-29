@@ -7,8 +7,8 @@ public class HealthSystem : MonoBehaviour
 
     public float Health { get; private set; }
 
-    public event Action<float> OnHealthChange;
-    public event Action<float> OnSmoothHealthChange;
+    public event Action<float> HealthChanged;
+    //public event Action<float> OnSmoothHealthChange;
 
     public float MaxHealth => _maxHealth;
 
@@ -19,7 +19,7 @@ public class HealthSystem : MonoBehaviour
 
     private void FixedUpdate()
     {
-        OnSmoothHealthChange?.Invoke(Health);
+        //OnSmoothHealthChange?.Invoke(Health);
     }
 
     internal void ChangeHealth(float value)
@@ -29,6 +29,26 @@ public class HealthSystem : MonoBehaviour
         else
             Health = _maxHealth;
 
-        OnHealthChange?.Invoke(Health);
+        HealthChanged?.Invoke(Health);
+    }
+
+    internal void IncreaseHealth(float value)
+    {
+        if (Health + value <= _maxHealth)
+            Health += value;
+        else
+            Health = _maxHealth;
+
+        HealthChanged?.Invoke(Health);
+    }
+
+    internal void DecreaseHealth(float value)
+    {
+        if (Health - value > 0)
+            Health -= value;
+        else
+            Destroy(gameObject);
+
+        HealthChanged?.Invoke(Health);
     }
 }

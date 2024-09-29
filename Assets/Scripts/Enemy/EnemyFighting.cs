@@ -7,14 +7,11 @@ public class EnemyFighting : MonoBehaviour
 
     private void Awake()
     {
-        _fighter.OnChangeHealth += _health.ChangeHealth;
+        _fighter.TakingDamage += _health.DecreaseHealth;
     }
 
     private void FixedUpdate()
     {
         //Debug.Log($"Здоровье Бота: {_health.Health}");
-
-        if (_health.Health <= 0)
-            Destroy(gameObject);
     }
 }
