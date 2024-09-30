@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class BaseHealthBar : MonoBehaviour
 {
-    [SerializeField] protected HealthSystem health;
+    [SerializeField] protected Health Health;
 
     private void Awake()
     {
-        health.HealthChanged += ChangeHealthView;
+        Health.HealthChanged += ChangeHealthView;
     }
 
     public virtual void ChangeHealthView(float value)

@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class FrogFighting : MonoBehaviour
 {
-    [SerializeField] private HealthSystem _health;
+    [SerializeField] private Health _health;
     [SerializeField] private Fighter _fighter;
     [SerializeField] private Healer _healer;
 
@@ -15,9 +15,7 @@ public class FrogFighting : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Debug.Log($"«доровье л€гушки: {_health.Health}");
-
-        if (_health.Health <= 0)
+        if (_health.Value <= 0)
             SceneManager.LoadScene("SampleScene");
     }
 }
