@@ -3,14 +3,14 @@ using System;
 
 public class FrogEatingFruit : MonoBehaviour
 {
-    public event Action OnIncreaseScore;
+    public event Action Eated;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out Fruit fruit))
-            EatFruit();
+        {
+            Eated?.Invoke();
+            fruit.Release();
+        }    
     }
-
-    private void EatFruit() =>
-        OnIncreaseScore?.Invoke();
 }

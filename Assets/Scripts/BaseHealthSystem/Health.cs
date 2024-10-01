@@ -7,7 +7,7 @@ public class Health : MonoBehaviour
 
     public float Value { get; private set; }
 
-    public event Action<float> HealthChanged;
+    public event Action<float> Changed;
 
     public float MaxValue => _maxValue;
 
@@ -23,7 +23,7 @@ public class Health : MonoBehaviour
         else
             Value = _maxValue;
 
-        HealthChanged?.Invoke(Value);
+        Changed?.Invoke(Value);
     }
 
     internal void DecreaseHealth(float value)
@@ -33,6 +33,6 @@ public class Health : MonoBehaviour
         else
             Destroy(gameObject);
 
-        HealthChanged?.Invoke(Value);
+        Changed?.Invoke(Value);
     }
 }

@@ -6,7 +6,12 @@ public class BaseHealthBar : MonoBehaviour
 
     private void Awake()
     {
-        Health.HealthChanged += ChangeHealthView;
+        Health.Changed += ChangeHealthView;
+    }
+
+    private void OnDisable()
+    {
+        Health.Changed -= ChangeHealthView;
     }
 
     public virtual void ChangeHealthView(float value)
