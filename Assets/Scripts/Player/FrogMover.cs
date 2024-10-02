@@ -6,13 +6,13 @@ public class FrogMover : MonoBehaviour
     [SerializeField] private float _jumpForce = 5f;
 
     private Frog _frog;
-    private FrogRotation _rotation;
+    private FrogView _view;
     private Rigidbody2D _rigidbody;
 
     private void Awake()
     {
         _frog = GetComponent<Frog>();
-        _rotation = GetComponentInChildren<FrogRotation>();
+        _view = GetComponentInChildren<FrogView>();
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 
@@ -33,7 +33,7 @@ public class FrogMover : MonoBehaviour
         if (direction != 0f)
         {
             transform.Translate(_moveSpeed * direction * Time.deltaTime * Vector2.right);
-            _rotation.Rotate(direction);
+            _view.Rotate(direction);
         }
     }
 

@@ -6,7 +6,7 @@ public class EnemyMover : MonoBehaviour
     [SerializeField] private float _distance;
     [SerializeField] private float _movementSpeed;
 
-    private Enemy _enemy;
+    private DogView _view;
     private float _xStartPosition;
     private Vector3 _velocity;
 
@@ -15,7 +15,7 @@ public class EnemyMover : MonoBehaviour
     private void Awake()
     {
         _xStartPosition = transform.position.x;
-        _enemy = GetComponent<Enemy>();
+        _view = GetComponentInChildren<DogView>();
     }
 
     private void Start()
@@ -55,7 +55,7 @@ public class EnemyMover : MonoBehaviour
             else if (transform.position.x <= _xStartPosition - _distance)
                 _velocity.x = _movementSpeed;
 
-            _enemy.Rotate(transform.position.x);
+            _view.Rotate(transform.position.x);
             transform.position += _velocity * Time.deltaTime;
 
             yield return null;
