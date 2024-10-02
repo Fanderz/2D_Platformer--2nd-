@@ -15,14 +15,17 @@ public class AidKit : MonoBehaviour
         HealSize = UnityEngine.Random.Range(_minKitSize,_maxKitSize);
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent(out Healer frog))
+            Heal?.Invoke(this);
+    }
+
     public void Activate() =>
         SetActivity(true);
 
     public void Deactivate() =>
         SetActivity(false);
-
-    internal void Release() =>
-        Heal?.Invoke(this);
 
     private void SetActivity(bool value) =>
         gameObject.SetActive(value);

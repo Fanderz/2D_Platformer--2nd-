@@ -8,9 +8,6 @@ public class Healer : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out AidKit kit))
-        {
             Healing?.Invoke(kit.HealSize);
-            kit.Release();
-        }
     }
 }

@@ -1,8 +1,13 @@
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class Frog : MonoBehaviour
-{ 
+{
+    [SerializeField] private Health _health;
+    [SerializeField] private Fighter _fighter;
+    [SerializeField] private Healer _healer;
+
     private GroundDetector _groundDetector;
     private InputReader _inputReader;
 
@@ -12,8 +17,10 @@ public class Frog : MonoBehaviour
 
     private void Awake()
     {
-        _groundDetector = GetComponent<GroundDetector>();
-        _inputReader = GetComponent<InputReader>();
+        _fighter.TakingDamage += _health.DecreaseHealth;
+        _healer.Healing += _health.IncreaseHealth;
+        _groundDetector = GetComponentInChildren<GroundDetector>();
+        _inputReader = GetComponentInChildren<InputReader>();
     }
 
     private void FixedUpdate()
@@ -23,6 +30,9 @@ public class Frog : MonoBehaviour
 
         if (_inputReader.GetIsJump() && _groundDetector.IsGround)
             OnFrogJump?.Invoke();
+
+        if (_health.Value <= 0)
+            SceneManager.LoadScene("SampleScene");
     }
 
     private void Update()

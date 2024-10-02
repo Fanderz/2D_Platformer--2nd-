@@ -8,7 +8,7 @@ public class FrogAnimator : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        _frog = GetComponent<Frog>();
+        _frog = GetComponentInParent<Frog>();
     }
 
     private void OnEnable()

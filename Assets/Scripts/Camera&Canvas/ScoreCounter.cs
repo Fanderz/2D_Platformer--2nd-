@@ -18,12 +18,12 @@ public class ScoreCounter : MonoBehaviour
 
     private void OnEnable()
     {
-        _frog.Eated += IncreaseScore;
+        _frog.OnIncreaseScore += IncreaseScore;
     }
 
     private void OnDisable()
     {
-        _frog.Eated -= IncreaseScore;
+        _frog.OnIncreaseScore -= IncreaseScore;
     }
 
     private void IncreaseScore()

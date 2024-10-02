@@ -22,7 +22,7 @@ public class AidKitSpawner : MonoBehaviour
             createFunc: () => Instantiate(_prefab, transform),
             actionOnGet: (kit) => SpawnObject(kit),
             actionOnRelease: (kit) => kit.Deactivate(),
-            actionOnDestroy: (kit) => Destroy(gameObject),
+            actionOnDestroy: (kit) => Destroy(kit),
             collectionCheck: true,
             defaultCapacity: _poolCapacity,
             maxSize: _poolMaxSize);

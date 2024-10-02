@@ -6,7 +6,7 @@ public class EnemyMover : MonoBehaviour
     [SerializeField] private float _distance;
     [SerializeField] private float _movementSpeed;
 
-    private float _xScale;
+    private Enemy _enemy;
     private float _xStartPosition;
     private Vector3 _velocity;
 
@@ -14,8 +14,8 @@ public class EnemyMover : MonoBehaviour
 
     private void Awake()
     {
-        _xScale = transform.localScale.x;
         _xStartPosition = transform.position.x;
+        _enemy = GetComponent<Enemy>();
     }
 
     private void Start()
@@ -25,29 +25,23 @@ public class EnemyMover : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponentInParent<Frog>() != null && _coroutine != null)
+        if (collision.GetComponent<Frog>() != null && _coroutine != null)
         {
-                StopCoroutine(_coroutine);
-                _coroutine = null;
+            StopCoroutine(_coroutine);
+            _coroutine = null;
         }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.GetComponentInParent<Frog>() != null)
-            transform.position = Vector2.Lerp(transform.position, new Vector2(collision.transform.position.x,transform.position.y), _movementSpeed / 2 * Time.deltaTime);
+        if (collision.GetComponent<Frog>() != null)
+            transform.position = Vector2.Lerp(transform.position, new Vector2(collision.transform.position.x, transform.position.y), _movementSpeed * Time.deltaTime);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.GetComponentInParent<Frog>() != null && _coroutine == null && gameObject != null)
-                _coroutine = StartCoroutine(Move());
-    }
-
-    private void Rotate(float direction)
-    {
-        if (direction != 0)
-            transform.localScale = new Vector3(direction * _xScale, transform.localScale.y, transform.localScale.z);
+        if (collision.GetComponent<Frog>() != null && _coroutine == null && gameObject != null)
+            _coroutine = StartCoroutine(Move());
     }
 
     private IEnumerator Move()
@@ -61,7 +55,7 @@ public class EnemyMover : MonoBehaviour
             else if (transform.position.x <= _xStartPosition - _distance)
                 _velocity.x = _movementSpeed;
 
-            Rotate(-_velocity.x);
+            _enemy.Rotate(transform.position.x);
             transform.position += _velocity * Time.deltaTime;
 
             yield return null;

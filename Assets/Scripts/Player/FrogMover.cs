@@ -1,21 +1,19 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class FrogMover : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed = 2f;
     [SerializeField] private float _jumpForce = 5f;
 
     private Frog _frog;
+    private FrogRotation _rotation;
     private Rigidbody2D _rigidbody;
-
-    private float _xScale;
 
     private void Awake()
     {
         _frog = GetComponent<Frog>();
+        _rotation = GetComponentInChildren<FrogRotation>();
         _rigidbody = GetComponent<Rigidbody2D>();
-        _xScale = transform.localScale.x;
     }
 
     private void OnEnable()
@@ -35,14 +33,8 @@ public class FrogMover : MonoBehaviour
         if (direction != 0f)
         {
             transform.Translate(_moveSpeed * direction * Time.deltaTime * Vector2.right);
-            Rotate(direction);
+            _rotation.Rotate(direction);
         }
-    }
-
-    private void Rotate(float direction)
-    {
-        if (direction != 0)
-            transform.localScale = new Vector3(direction * _xScale, transform.localScale.y, transform.localScale.z);
     }
 
     private void Jump()
